@@ -6,6 +6,5 @@ test/
 .gitignore
 .travis.yml
 CODE_OF_CONDUCT.md
+package-lock.json
 tsconfig.json
-yarn-error.log
-yarn.lock
