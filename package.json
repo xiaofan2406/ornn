@@ -1,0 +1,50 @@
+{
+  "name": "ornn",
+  "version": "0.0.0",
+  "author": "Xiaofan Wu (https://github.com/xiaofan2406)",
+  "description": "SQL ORM for node",
+  "keywords": ["node", "orm", "sql"],
+  "repository": "xiaofan2406/ornn",
+  "bugs": {
+    "url": "https://github.com/xiaofan2406/ornn/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint:prettier": "prettier-check '{src,config}/**/*.{ts,json,md}'",
+    "lint": "npm run lint:prettier",
+    "format": "prettier '{src,config}/**/*.{ts,json,md}' --write",
+    "build": "NODE_ENV=production tsc",
+    "test": "NODE_ENV=test jest --watch",
+    "coverage": "NODE_ENV=test jest --coverage",
+    "prepublishOnly": "npm run build",
+    "postpublish": "git push && git push --tags"
+  },
+  "jest": {
+    "preset": "<rootDir>/config/jest.config.json"
+  },
+  "lint-staged": {
+    "*.{ts,json,md}": ["prettier --write", "git add"]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "husky": "^0.14.3",
+    "jest": "^21.2.1",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.1",
+    "prettier-check": "^2.0.0",
+    "ts-jest": "^21.2.4",
+    "typescript": "^2.6.2"
+  }
+}

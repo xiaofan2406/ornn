@@ -1,0 +1,11 @@
+config/
+coverage/
+docs/
+src/
+test/
+.gitignore
+.travis.yml
+CODE_OF_CONDUCT.md
+tsconfig.json
+yarn-error.log
+yarn.lock
