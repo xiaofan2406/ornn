@@ -1,0 +1,8 @@
+{
+  "presets": [["babel-preset-env", { "targets": { "node": "current" } }]],
+  "plugins": [
+    ["babel-plugin-transform-class-properties", { "spec": true }],
+    ["babel-plugin-transform-object-rest-spread", { "useBuiltIns": true }],
+    "babel-plugin-transform-export-extensions"
+  ]
+}
