@@ -20,6 +20,8 @@
     "lint": "npm run lint:prettier",
     "format": "prettier '{config,src,test}/**/*.{js,json,md}' --write",
     "cleanup": "rm -rf lib",
+    "docker": "docker-compose up",
+    "docker-down": "docker-compose down",
     "prebuild": "npm run cleanup",
     "build": "NODE_ENV=production babel src --out-dir lib",
     "test": "NODE_ENV=test jest --watch",

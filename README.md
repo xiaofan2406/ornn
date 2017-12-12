@@ -15,3 +15,7 @@
 [coverage]: https://codecov.io/gh/xiaofan2406/ornn
 
 SQL ORM for node
+
+### Development
+
+* require docker, docker-compose
