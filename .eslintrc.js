@@ -22,5 +22,6 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ],
+    'no-param-reassign': [2, { props: false }],
   },
 };

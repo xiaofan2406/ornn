@@ -14,6 +14,10 @@ class Schema {
     }
     return true;
   }
+
+  keys() {
+    return Object.keys(this.schema);
+  }
 }
 
 export default Schema;
