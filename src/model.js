@@ -5,9 +5,13 @@ const valueEsc = str => `'${str}'`;
 
 export default pool => {
   class Model {
-    static schema = {};
+    static get schema() {
+      return {};
+    }
 
-    static tableName = '';
+    static get tableName() {
+      return '';
+    }
 
     static get _schema() {
       if (!this.__schema) {
@@ -54,6 +58,21 @@ export default pool => {
 
       const query = `INSERT INTO "${tableName}" (${columns}) VALUES (${values})`;
       return pool.query(query);
+    }
+
+    /**
+     * {
+     *    fields: {}
+     *    count:
+     *    orderBy:
+     * }
+     * @param {*} criteria
+     */
+    static async select(criteria) {
+      // hooks
+      // validations
+      // criteria
+      //
     }
 
     // static async findOne() {}
