@@ -23,5 +23,6 @@ module.exports = {
       'WithStatement',
     ],
     'no-param-reassign': [2, { props: false }],
+    'no-underscore-dangle': 0,
   },
 };

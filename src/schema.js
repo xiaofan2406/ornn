@@ -15,9 +15,15 @@ class Schema {
     return true;
   }
 
-  keys() {
+  get keys() {
     return Object.keys(this.schema);
   }
+
+  getValues = data =>
+    this.keys.reduce((values, key) => {
+      values[key] = data[key];
+      return values;
+    }, {});
 }
 
 export default Schema;
