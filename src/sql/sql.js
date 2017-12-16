@@ -1,4 +1,4 @@
-const nameEsc = str => `"${str}"`;
+const columnEsc = str => `"${str}"`;
 const valueEsc = str => `'${str}'`;
 
 const getKeyValue = obj => ({
@@ -6,23 +6,12 @@ const getKeyValue = obj => ({
   value: Object.values(obj)[0],
 });
 
-const asSqlString = ({ key, value }) => `${nameEsc(key)} as ${nameEsc(value)}`;
+const asSqlString = ({ key, value }) =>
+  `${columnEsc(key)} as ${columnEsc(value)}`;
 const whereSqlString = (string = '') => (string ? `WHERE ${string}` : '');
 
 // const isValidConnector = (str = '') =>
 //   typeof str === 'string' && ['AND', 'OR'].includes(str.toUpperCase());
-
-// (A = 9 AND B < 4) OR D > 8
-// const test = {
-//   connector: 'OR',
-//   clauses: [
-//     {
-//       connector: 'AND',
-//       clauses: [{ A: '=9' }, { B: '<4' }],
-//     },
-//     { D: '> 8' },
-//   ],
-// };
 
 const isComplexWhereExpr = (expr = {}) => expr.connector && expr.clauses;
 
@@ -30,7 +19,7 @@ const parseCondition = conditon => conditon;
 
 const parseSingleClause = expr => {
   const { key, value } = getKeyValue(expr);
-  return `${nameEsc(key)} ${parseCondition(value)}`;
+  return `${columnEsc(key)} ${parseCondition(value)}`;
 };
 
 const parseWhereExpr = expr => {
@@ -49,7 +38,7 @@ const parseWhereExpr = expr => {
 
 /**
  * tableName: ''
- * select: [''] || [{ name: as }]
+ * select: [''] || [{ name, as, from}]
  * where: {connector, clause}
  * orderBy: [{ name, ASC|DESC }]
  * @param {*} criteria

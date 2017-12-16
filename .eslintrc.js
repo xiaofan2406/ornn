@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
@@ -14,6 +16,13 @@ module.exports = {
       experimentalObjectRestSpread: true,
     },
   },
+  settings: {
+    'import/resolver': {
+      jest: {
+        jestConfigFile: path.join(__dirname, './config/jest.config.json'),
+      },
+    },
+  },
   extends: ['airbnb-base', 'prettier'],
   rules: {
     'no-restricted-syntax': [
@@ -24,5 +33,6 @@ module.exports = {
     ],
     'no-param-reassign': [2, { props: false }],
     'no-underscore-dangle': 0,
+    'import/no-extraneous-dependencies': 0,
   },
 };
