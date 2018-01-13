@@ -1,7 +1,5 @@
 import Schema from './schema';
-
-const columnEsc = str => `"${str}"`;
-const valueEsc = str => `'${str}'`;
+import { InsertClause } from './sql';
 
 export default pool => {
   class Model {
@@ -45,18 +43,12 @@ export default pool => {
     static async insert(data) {
       // hooks
       // validations
-      const valuesObject = this._schema.getValues(data);
+      const validData = this._schema.getValues(data);
 
-      const values = Object.values(valuesObject)
-        .map(valueEsc)
-        .join(', ');
-      const columns = Object.keys(valuesObject)
-        .map(columnEsc)
-        .join(', ');
-
-      const { tableName } = this;
-
-      const query = `INSERT INTO "${tableName}" (${columns}) VALUES (${values})`;
+      const query = new InsertClause({
+        tableName: this.tableName,
+        data: validData,
+      }).sql;
       return pool.query(query);
     }
 
