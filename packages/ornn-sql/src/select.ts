@@ -10,7 +10,7 @@ export type SelectConfig = string[] | FieldConfig | FieldConfig[];
 
 const isFieldConfig = (config: any): config is FieldConfig => !!config.name;
 
-class SelectClause {
+class Select {
   tables: Array<string> = [];
   alias: Array<string> = [];
   sql: string = '';
@@ -52,4 +52,4 @@ class SelectClause {
   }
 }
 
-export default SelectClause;
+export default Select;

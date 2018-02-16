@@ -1,4 +1,16 @@
-import { jsType, nameEsc, valueEsc, wrapInBrackets } from './helpers';
+import { nameEsc, valueEsc, wrapInBrackets } from './helpers';
+
+export type Condition = {
+  name: string;
+  operator: string;
+  value: any;
+  from?: string;
+};
+
+export type Clause = {
+  connector: string;
+  clauses: (Clause | Condition)[];
+};
 
 // (A = 9 AND B < 4) OR D > 8
 // const test = {
@@ -16,25 +28,29 @@ import { jsType, nameEsc, valueEsc, wrapInBrackets } from './helpers';
 //   ],
 // };
 
-const isComplexExpr = target => target.connector && target.clauses;
+const isClause = (target: any): target is Clause =>
+  target.connector && !!target.clauses;
 
-class WhereClause {
-  constructor(config) {
-    if (jsType(config) !== 'Object') {
-      throw new Error('invalid config');
+const isCondition = (target: any): target is Condition =>
+  target.name && target.operator && !!target.value;
+
+class Where {
+  tables: string[] = [];
+  sql: string = '';
+
+  constructor(config: Condition | Clause) {
+    if (isClause(<Clause>config) || isCondition(<Condition>config)) {
+      this.sql = this.parseConfig(config);
     }
-
-    this.sql = this.parseConfig(config);
+    throw new Error('invalid config');
   }
 
-  tables = [];
-
-  isCondition = target => target.name && target.operator && target.value;
-
   // TODO subqueries
-  parseValue = value => valueEsc(value);
+  parseValue(value: string): string {
+    return valueEsc(value);
+  }
 
-  parseSingleClause = ({ name, operator, value, from }) => {
+  parseCondition({ name, operator, value, from }: Condition): string {
     let columnName = nameEsc(name);
 
     if (from) {
@@ -43,16 +59,18 @@ class WhereClause {
     }
 
     return `${columnName} ${operator} ${this.parseValue(value)}`;
-  };
+  }
 
-  parseConfig = config =>
-    isComplexExpr(config)
-      ? wrapInBrackets(
-          config.clauses
-            .map(this.parseConfig)
-            .join(` ${config.connector.toUpperCase()} `)
-        )
-      : this.parseSingleClause(config);
+  parseConfig(config: Condition | Clause): string {
+    if (isCondition(config)) {
+      return this.parseCondition(config);
+    }
+    return wrapInBrackets(
+      config.clauses
+        .map(this.parseConfig)
+        .join(` ${config.connector.toUpperCase()} `)
+    );
+  }
 }
 
-export default WhereClause;
+export default Where;

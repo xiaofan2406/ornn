@@ -9,7 +9,7 @@ export type InsertConfig = {
  * tableName
  * data
  */
-class InsertClause {
+class Insert {
   tableName: string = '';
   sql: string = '';
 
@@ -32,4 +32,4 @@ class InsertClause {
   }
 }
 
-export default InsertClause;
+export default Insert;
