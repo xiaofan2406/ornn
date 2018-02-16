@@ -1,10 +1,11 @@
 {
-  "collectCoverageFrom": ["src/**/*.js"],
-  "testMatch": ["<rootDir>/test/**/*.js"],
+  "collectCoverageFrom": ["<rootDir>/packages/**/src/**/*.js"],
+  "testMatch": ["<rootDir>/packages/**/__test__/**/*.js"],
   "testEnvironment": "node",
   "testURL": "http://localhost",
   "transform": {
-    "^.+\\.js$": "babel-jest"
+    "^.+\\.js$": "babel-jest",
+    "^.+\\.ts$": "ts-jest"
   },
   "moduleNameMapper": {
     "^src(.*)$": "<rootDir>/src$1"

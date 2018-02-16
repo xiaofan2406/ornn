@@ -3,32 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "test": "NODE_ENV=test jest --watch"
-  },
-  "jest": {
-    "collectCoverageFrom": ["src/**/*.js"],
-    "testMatch": ["<rootDir>/test/**/*.js"],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "^src(.*)$": "<rootDir>/src$1"
-    },
-    "moduleFileExtensions": ["js", "json"],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
-      }
-    }
-  },
   "devDependencies": {
-    "jest": "^22.3.0",
     "typescript": "^2.7.1"
   }
 }

@@ -12,7 +12,10 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "test": "lerna run test --stream"
+    "test": "NODE_ENV=test jest"
+  },
+  "jest": {
+    "preset": "<rootDir>/config/jest.config.json"
   },
   "lint-staged": {
     "*.{js,mjs,ts,json,md}": ["prettier --write", "git add"]
@@ -29,6 +32,7 @@
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
     "prettier-check": "^2.0.0",
+    "ts-jest": "^22.0.4",
     "typescript": "^2.7.1"
   }
 }

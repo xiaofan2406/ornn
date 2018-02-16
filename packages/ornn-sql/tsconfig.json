@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // Parse in strict mode and emit "use strict" for each source file
+    "alwaysStrict": true,
+    // Generates corresponding .d.ts file
+    "declaration": true,
+    // Disallow inconsistently-cased references to the same file.
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "lib",
+    "module": "commonjs",
+    "target": "ESNext",
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "strictNullChecks": true,
+
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["config", "coverage", "node_modules", "__test__"],
+  "types": ["typePatches"]
+}

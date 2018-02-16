@@ -1,4 +1,4 @@
-import { SelectClause } from 'src/sql';
+import { SelectClause } from '../src/sql';
 
 describe('SelectClause', () => {
   describe('given string config', () => {

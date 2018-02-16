@@ -1,4 +1,4 @@
-import { WhereClause } from 'src/sql';
+import { WhereClause } from '../src/sql';
 
 describe('WhereClause', () => {
   describe('given single clause config', () => {

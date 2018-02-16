@@ -1,8 +1,8 @@
-export const nameEsc = str => `"${str}"`;
+export const nameEsc = (str: string): string => `"${str}"`;
 
-export const valueEsc = str => `'${str}'`;
+export const valueEsc = (str: string): string => `'${str}'`;
 
-export const wrapInBrackets = target => `(${target})`;
+export const wrapInBrackets = (target: string): string => `(${target})`;
 
 export const jsType = target => {
   if (typeof target === 'string') return 'String';
