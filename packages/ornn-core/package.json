@@ -1,10 +1,10 @@
 {
   "name": "@ornn/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@ornn/schema": "^0.0.1",
-    "@ornn/sql": "^0.0.1"
+    "@ornn/schema": "^0.0.2",
+    "@ornn/sql": "^0.0.2"
   }
 }
