@@ -1,0 +1,32 @@
+#!/bin/bash
+
+status=0
+
+lint() {
+  package=./packages/ornn-$1
+
+  if [ ! -d "$package" ]; then
+    printf "Error: Invalid package: '$1'.\\n\\n"
+    exit 1
+  fi
+
+  echo "Linting:" $1...
+  eslint $package/src $package/test --ext .js,.mjs
+
+  if [ $? -eq 0 ]; then
+    echo "Linting:" $1...Done!
+    echo
+  else
+    status=1
+    echo "Linting:" $1...Failed!
+    echo
+  fi
+}
+
+if [ -z "$1" ]; then
+  for path in $(ls -d ./packages/*/); do lint ${path:16:-1}; done
+else
+  lint $1
+fi
+
+exit $status

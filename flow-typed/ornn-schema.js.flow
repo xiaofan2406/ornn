@@ -1,0 +1,53 @@
+export type FunctionDefault = () => any;
+
+export type ValueDefault = string | number | void;
+
+export type Default = FunctionDefault | ValueDefault;
+
+export type PropertyConfig = {|
+  type: string, // TODO types enum?
+  /*
+    db: NOT NULL
+  */
+  required?: boolean,
+  /*
+    db: DEFAULT
+  */
+  default?: Default,
+  /*
+    db: PRIMARY KEY
+  */
+  primary?: boolean,
+  /*
+    db: UNIQUE
+  */
+  unique?: boolean,
+|};
+
+export type SchemaConfig = {
+  [string]: PropertyConfig,
+};
+
+export type SchemaOption = {|
+  tableName: string,
+  /*
+    add serial id primary key
+  */
+  defaultId?: boolean,
+  /*
+    add generates createdAt and updatedAt
+  */
+  timestamp?: boolean,
+|};
+
+declare module '@ornn/schema' {
+  declare class Schema {
+    constructor(schema: SchemaConfig, options: SchemaOption): Schema;
+
+    +properties: string[];
+
+    getValues(data: Object): Object;
+  }
+
+  declare export default typeof Schema
+}

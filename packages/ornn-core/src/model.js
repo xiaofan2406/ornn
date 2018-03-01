@@ -1,0 +1,97 @@
+/* @flow */
+
+import Schema from '@ornn/schema';
+import { Insert } from '@ornn/sql';
+import type { Pool } from 'pg';
+
+export default (pool: Pool) => {
+  class Model {
+    _data: Object;
+
+    /*
+      user extend Model and should sets schema and tableName
+    */
+    static get schema(): SchemaConfig {
+      return {};
+    }
+    static get tableName(): string {
+      return '';
+    }
+
+    static __schema: Schema;
+
+    static get _schema(): Schema {
+      if (!this.__schema) {
+        this.__schema = new Schema(this.schema, {
+          tableName: this.tableName,
+        });
+      }
+      return this.__schema;
+    }
+
+    constructor(data: Object = {}) {
+      this._data = data;
+
+      // proxy this[prop] <===> this._data[prop]
+      // only when prop is a recognized by schema
+      return new Proxy(this, {
+        get(target, prop, reciever) {
+          if (target.constructor._schema.properties.includes(prop)) {
+            return target._data[prop];
+          }
+          return Reflect.get(target, prop, reciever);
+        },
+        set(target, prop, value, reciever) {
+          if (target.constructor._schema.properties.includes(prop)) {
+            target._data[prop] = value;
+            return true;
+          }
+          return Reflect.set(target, prop, value, reciever);
+        },
+      });
+    }
+
+    static async insert(data) {
+      // hooks
+      // validations
+      const validData = this._schema.getValues(data);
+
+      const query = new Insert({
+        tableName: this.tableName,
+        data: validData,
+      }).sql;
+      return pool.query(query);
+    }
+
+    /**
+     * {
+     *    fields: {}
+     *    count:
+     *    orderBy:
+     * }
+     * @param {*} criteria
+     */
+    static async select(criteria) {
+      // hooks
+      // validations
+      // criteria
+      //
+    }
+
+    // static async findOne() {}
+
+    // static async delete() {}
+
+    // static async update() {}
+
+    save = () =>
+      // hooks
+      this.constructor.insert(this._data);
+
+    update = () => {};
+
+    delete = () => {};
+  }
+
+  return Model;
+};

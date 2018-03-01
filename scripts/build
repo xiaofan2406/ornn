@@ -1,0 +1,37 @@
+#!/bin/bash
+
+status=0
+
+build() {
+  package=./packages/ornn-$1
+
+  if [ ! -d "$package" ]; then
+    printf "Error: Invalid package: '$1'.\\n\\n"
+    exit 1
+  fi
+
+  echo "Cleaning previous build:" $1...
+  rm -rf $package/lib
+  echo "Cleaning previous build:" $1...Done!
+  echo
+
+  echo "Building:" $1...
+  NODE_ENV=production babel $package/src --out-dir $package/lib
+
+  if [ $? -eq 0 ]; then
+    echo "Building:" $1...Done!
+    echo
+  else
+    status=1
+    echo "Building:" $1...Failed!
+    echo
+  fi
+}
+
+if [ -z "$1" ]; then
+  for path in $(ls -d ./packages/*/); do build ${path:16:-1}; done
+else
+  build $1
+fi
+
+exit $status

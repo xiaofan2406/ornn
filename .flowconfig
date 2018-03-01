@@ -1,0 +1,17 @@
+[ignore]
+.*/lib/.*
+.*/test/.*
+.*/node_modules/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.js
+module.file_ext=.mjs
+module.file_ext=.json
+module.use_strict=true
+experimental.const_params=true

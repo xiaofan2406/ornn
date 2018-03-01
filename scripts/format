@@ -1,0 +1,31 @@
+#!/bin/bash
+
+status=0
+
+format() {
+  package=./packages/ornn-$1
+
+  if [ ! -d "$package" ]; then
+    printf "Error: Invalid package: '$1'.\\n\\n"
+    exit 1
+  fi
+
+  echo "Formatting:" $1...
+  prettier "{$package/src,$package/test}/**/*.{js,mjs,json,md}" --write
+  if [ $? -eq 0 ]; then
+    echo "Formatting:" $1...Done!
+    echo
+  else
+    status=1
+    echo "Formatting:" $1...Failed!
+    echo
+  fi
+}
+
+if [ -z "$1" ]; then
+  for path in $(ls -d ./packages/*/); do format ${path:16:-1}; done
+else
+  format $1
+fi
+
+exit $status

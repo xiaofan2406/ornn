@@ -1,0 +1,18 @@
+{
+  "collectCoverageFrom": ["<rootDir>/packages/**/src/**/*.{js|mjs}"],
+  "testMatch": ["<rootDir>/packages/**/test/**/*.{js|mjs}"],
+  "testEnvironment": "node",
+  "testURL": "http://localhost",
+  "transform": {
+    "^.+\\.(js|mjs)$": "babel-jest"
+  },
+  "moduleFileExtensions": ["js", "mjs", "json"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 90,
+      "functions": 90,
+      "lines": 90,
+      "statements": 90
+    }
+  }
+}

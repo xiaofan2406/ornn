@@ -1,0 +1,56 @@
+declare type ColumnConfig = {|
+  name: string,
+  type: string,
+  required: boolean,
+  default: ValueDefault | void,
+  primary: boolean,
+  unique: boolean,
+|};
+
+declare type WhereCondition = {
+  name: string,
+  operator: string,
+  value: any,
+  from?: string,
+};
+
+declare type WhereClause = {
+  connector: string,
+  clauses: (Clause | Condition)[],
+};
+
+declare type FieldConfig = {
+  name: string,
+  as?: string,
+  from?: string,
+};
+
+declare type InsertConfig = {
+  tableName: string,
+  data: Object,
+};
+
+declare type CreateTableConfig = {
+  tableName: string,
+  columns: ColumnConfig[], // TODO object type, not null
+};
+
+declare type SelectConfig = string[] | FieldConfig | FieldConfig[];
+
+declare export var PG_TYPES: { [string]: string };
+
+declare module '@ornn/sql' {
+  // TODO enum
+
+  declare class Insert {}
+
+  declare export var Insert: typeof Insert;
+
+  declare class CreateTable {
+    constructor(config: CreateTableConfig): CreateTable;
+
+    +sql: string;
+  }
+
+  declare export var CreateTable: typeof CreateTable;
+}

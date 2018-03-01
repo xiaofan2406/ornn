@@ -1,0 +1,31 @@
+#!/bin/bash
+
+status=0
+
+prettierCheck() {
+  package=./packages/ornn-$1
+
+  if [ ! -d "$package" ]; then
+    printf "Error: Invalid package: '$1'.\\n\\n"
+    exit 1
+  fi
+
+  echo "Prettier checking:" $1...
+  prettier-check "{$package/src,$package/test}/**/*.{js,mjs,json,md}"
+  if [ $? -eq 0 ]; then
+    echo "Prettier checking:" $1...Done!
+    echo
+  else
+    status=1
+    echo "Prettier checking:" $1...Failed!
+    echo
+  fi
+}
+
+if [ -z "$1" ]; then
+  for path in $(ls -d ./packages/*/); do prettierCheck ${path:16:-1}; done
+else
+  prettierCheck $1
+fi
+
+exit $status

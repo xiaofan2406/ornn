@@ -1,0 +1,6 @@
+{
+  "name": "@ornn/sql",
+  "version": "0.0.2",
+  "main": "lib/index.js",
+  "license": "MIT"
+}
