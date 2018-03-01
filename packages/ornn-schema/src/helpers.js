@@ -21,11 +21,3 @@ export const UPDATED_AT_PROPERTY = {
     type: PG_TYPES.TIMESTAMP,
   },
 };
-
-/**
- * return true if target is null or undefined
- */
-export const isNil = (target: any): boolean %checks => target == null;
-
-export const isFunction = (target: any): boolean %checks =>
-  typeof target === 'function';

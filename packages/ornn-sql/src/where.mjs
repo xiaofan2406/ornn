@@ -1,4 +1,17 @@
+// TODO
 import { nameEsc, valueEsc, wrapInBrackets } from './helpers';
+
+type WhereCondition = {
+  name: string,
+  operator: string,
+  value: mixed,
+  from?: string,
+};
+
+type WhereClause = {
+  connector: string,
+  clauses: (WhereClause | WhereCondition)[],
+};
 
 // (A = 9 AND B < 4) OR D > 8
 // const test = {
@@ -17,9 +30,10 @@ import { nameEsc, valueEsc, wrapInBrackets } from './helpers';
 // };
 
 // TODO custom type predicate doesnt yet work https://github.com/facebook/flow/issues/34
-const isClause = (target: any): %checks => target.connector && !!target.clauses;
+const isClause = (target: mixed): %checks =>
+  target.connector && !!target.clauses;
 
-const isCondition = (target: any): %checks =>
+const isCondition = (target: mixed): %checks =>
   target.name && target.operator && !!target.value;
 
 class Where {

@@ -1,22 +1,18 @@
-import { nameEsc, valueEsc } from './helpers';
+/* @flow */
+import { nameEsc, valueEsc, arrayEsc } from './helpers';
 
-/**
- * tableName
- * data
- */
 class Insert {
-  tableName: string = '';
-  sql: string = '';
+  +tableName: string = '';
+  +sql: string = '';
 
   constructor(config: InsertConfig) {
     this.tableName = config.tableName;
-
     this.sql = this.parseData(config.data);
   }
 
-  parseData(data: Object): string {
+  +parseData = (data: Object): string => {
     const values = Object.values(data)
-      .map(valueEsc)
+      .map(value => (Array.isArray(value) ? arrayEsc(value) : valueEsc(value)))
       .join(', ');
     const columns = Object.keys(data)
       .map(nameEsc)
@@ -24,7 +20,7 @@ class Insert {
 
     const tableName = nameEsc(this.tableName);
     return `INSERT INTO ${tableName} (${columns}) VALUES (${values})`;
-  }
+  };
 }
 
 export default Insert;

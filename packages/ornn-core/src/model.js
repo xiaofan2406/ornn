@@ -18,8 +18,8 @@ export default (pool: Pool) => {
       return '';
     }
 
+    // get the Schema object through _schema
     static __schema: Schema;
-
     static get _schema(): Schema {
       if (!this.__schema) {
         this.__schema = new Schema(this.schema, {
@@ -51,7 +51,7 @@ export default (pool: Pool) => {
       });
     }
 
-    static async insert(data) {
+    static async insert(data: Object) {
       // hooks
       // validations
       const validData = this._schema.getValues(data);

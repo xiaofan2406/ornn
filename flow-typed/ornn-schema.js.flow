@@ -1,4 +1,4 @@
-export type FunctionDefault = () => any;
+export type FunctionDefault = () => mixed;
 
 export type ValueDefault = string | number | void;
 
@@ -42,11 +42,13 @@ export type SchemaOption = {|
 
 declare module '@ornn/schema' {
   declare class Schema {
-    constructor(schema: SchemaConfig, options: SchemaOption): Schema;
+    constructor(config: SchemaConfig, options: SchemaOption): Schema;
 
     +properties: string[];
 
     getValues(data: Object): Object;
+
+    describeTable(): string;
   }
 
   declare export default typeof Schema

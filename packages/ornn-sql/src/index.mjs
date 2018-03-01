@@ -1,7 +1,14 @@
+/* @flow */
 import CreateTable from './createTable';
+
+import * as helpers from './helpers';
+
 import Insert from './insert';
-import Select from './select';
-import Where from './where';
+
 import * as PG_TYPES from './pg-types';
 
-export { CreateTable, Insert, Select, Where, PG_TYPES };
+import Select from './select';
+
+import Where from './where';
+
+export { CreateTable, helpers, Insert, PG_TYPES, Select, Where };

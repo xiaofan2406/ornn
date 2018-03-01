@@ -1,14 +1,14 @@
 /* @flow */
 
-import { CreateTable } from '@ornn/sql';
+import { CreateTable, helpers } from '@ornn/sql';
 import {
   DEFAULT_ID_NAME,
   DEFAULT_ID_PROPERTY,
   CREATED_AT_PROPERTY,
   UPDATED_AT_PROPERTY,
-  isNil,
-  isFunction,
 } from './helpers';
+
+const { isNil, isFunction } = helpers;
 
 class Schema {
   config: SchemaConfig;
@@ -21,7 +21,7 @@ class Schema {
     this.processOptions();
   }
 
-  processOptions = (): void => {
+  +processOptions = (): void => {
     if (this.options.defaultId) {
       this.config = { ...this.config, ...DEFAULT_ID_PROPERTY };
     }
@@ -46,12 +46,12 @@ class Schema {
       : Object.keys(this.config);
   }
 
-  getDefaultValueFor = (property: string) =>
+  +getDefaultValueFor = (property: string) =>
     isFunction(this.config[property].default)
       ? this.config[property].default()
       : this.config[property].default;
 
-  getValues = (data: Object): Object => {
+  +getValues = (data: Object): Object => {
     let _data = { ...data };
 
     return this.properties.reduce((values, property) => {
@@ -66,7 +66,7 @@ class Schema {
     }, {});
   };
 
-  describeColumn = (name: string, config: PropertyConfig): ColumnConfig => ({
+  +describeColumn = (name: string, config: PropertyConfig): ColumnConfig => ({
     name,
     type: config.type,
     required: !!config.required,
@@ -75,14 +75,15 @@ class Schema {
     unique: !!config.unique,
   });
 
-  describeTable = (): string => {
+  +describeTable = (): string => {
     const columns = this.properties.map(property =>
       this.describeColumn(property, this.config[property])
     );
     return new CreateTable({ tableName: this.options.tableName, columns }).sql;
   };
 
-  validate(data: Object) {
+  // TODO
+  +validate = (data: Object) => {
     const dataKeys = Object.keys(data);
     for (const dataKey of dataKeys) {
       // if the property is not defined in the schema
@@ -92,7 +93,7 @@ class Schema {
       // more validations
     }
     return true;
-  }
+  };
 }
 
 export default Schema;
