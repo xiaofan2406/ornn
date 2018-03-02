@@ -84,15 +84,26 @@ class Schema {
 
   // TODO
   +validate = (data: Object) => {
-    const dataKeys = Object.keys(data);
-    for (const dataKey of dataKeys) {
-      // if the property is not defined in the schema
-      if (!this.config[dataKey])
-        return new Error(`Unrecognized key ${dataKey}`);
-
-      // more validations
+    const errors = [];
+    for (const property of this.properties) {
+      const propertyConfig = this.config[property];
+      const value = data[property];
+      if (propertyConfig.required === true && isNil(value)) {
+        errors.push({
+          property,
+          message: `${property} is required. Received ${JSON.stringify(value)}`,
+        });
+        continue;
+      }
+      // TODO validate type
+      if (isFunction(propertyConfig.validate)) {
+        const message = propertyConfig.validate(data);
+        if (message) {
+          errors.push({ property, message });
+          continue;
+        }
+      }
     }
-    return true;
   };
 }
 

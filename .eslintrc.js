@@ -31,6 +31,7 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ],
+    'no-continue': 0,
     'no-param-reassign': [2, { props: false }],
     'no-underscore-dangle': 0,
     'import/no-extraneous-dependencies': 0,

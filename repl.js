@@ -59,8 +59,7 @@ class User extends Model {
   user.uknow = '123';
 
   await user.save();
-  console.log(user);
-  console.log(user.createdAt.toString());
+  user.snapshot();
   process.exit();
 })();
 

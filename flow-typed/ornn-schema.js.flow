@@ -22,6 +22,10 @@ export type PropertyConfig = {|
     db: UNIQUE
   */
   unique?: boolean,
+  /*
+    getError? return error message, falsy value means valid
+  */
+  validate?: (data: Object) => string,
 |};
 
 export type SchemaConfig = {
