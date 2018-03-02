@@ -9,7 +9,7 @@ export const isFunction = (target: any): boolean %checks =>
   typeof target === 'function';
 
 export const isObject = (target: any): boolean %checks =>
-  target.constructor === Object;
+  target && target.constructor === Object;
 
 export const nameEsc = (str: string) => `"${str}"`;
 

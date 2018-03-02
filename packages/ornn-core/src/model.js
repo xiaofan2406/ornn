@@ -87,9 +87,9 @@ export default (pool: Pool) => {
 
     // static async update() {}
 
-    save = () =>
-      // hooks
-      this.constructor.insert(this._data);
+    save = () => this.constructor.insert(this._data);
+
+    // hooks
 
     update = () => {};
 

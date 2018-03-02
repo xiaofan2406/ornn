@@ -3,7 +3,13 @@ import ornn from './packages/ornn-core/src';
 import Schema from './packages/ornn-schema/src';
 import { CreateTable, PG_TYPES, Insert } from './packages/ornn-sql/src';
 
-const { Model } = ornn();
+const { Model } = ornn({
+  user: 'ornn',
+  host: '192.168.1.255',
+  database: 'ornn_test',
+  password: 'ornn',
+  port: 5432,
+});
 
 class Author extends Model {
   static get schema() {
@@ -36,6 +42,11 @@ author.email = 'heloo@mail.com';
 author.uknow = '123';
 console.log(author);
 console.log(Object.keys(author));
+
+author
+  .save()
+  .then(console.log)
+  .catch(console.log);
 // console.log(author);
 
 // const config = {
