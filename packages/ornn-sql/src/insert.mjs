@@ -10,6 +10,8 @@ class Insert {
     this.sql = this.parseData(config.data);
   }
 
+  // js null will be set to NULL, as a way to clear value
+  // js undefined will be ignored
   +parseData = (data: Object): string => {
     const values = Object.values(data)
       .filter(value => !isVoid(value))

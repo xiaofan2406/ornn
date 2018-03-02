@@ -39,9 +39,24 @@ declare module '@ornn/sql' {
   // TODO enum
   declare export var PG_TYPES: { [string]: string };
 
+  declare function isVoid(target: any): boolean %checks(target === undefined);
+
+  declare function isNull(target: any): boolean %checks(target === null);
+
+  declare function isNil(target: any): boolean %checks(target === undefined ||
+    target === null);
+
+  declare function isFunction(target: any): boolean %checks(typeof target ===
+    'function');
+
+  declare function isObject(target: any): boolean %checks(target &&
+    target.constructor === Object);
+
   declare export var helpers: {
-    isNil(target: any): boolean,
-    isFunction(target: any): boolean,
-    isObject(target: any): boolean,
+    isVoid: typeof isVoid,
+    isNull: typeof isNull,
+    isNil: typeof isNil,
+    isFunction: typeof isFunction,
+    isObject: typeof isObject,
   };
 }
