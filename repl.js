@@ -1,3 +1,4 @@
+/* @flow */
 import uuid from 'uuid';
 import ornn from './packages/ornn-core/src';
 import Schema from './packages/ornn-schema/src';

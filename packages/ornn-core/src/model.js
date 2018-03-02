@@ -1,5 +1,4 @@
 /* @flow */
-
 import Schema from '@ornn/schema';
 import { Insert, helpers } from '@ornn/sql';
 import type { Pool } from 'pg';
@@ -9,11 +8,11 @@ const { isFunction } = helpers;
 export default (pool: Pool) => {
   class Model {
     +_data: Object;
-    _flags: Object = {
+    +_flags: Object = {
       isSaved: false,
     };
 
-    //  user extend Model and should sets schema and tableName
+    //  user extend Model and should sets schema and options
     static schema: SchemaConfig;
     static options: SchemaOption;
 
