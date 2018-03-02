@@ -19,6 +19,7 @@ export default (pool: Pool) => {
     }
 
     // get the Schema object through _schema
+    // is this needed?
     static __schema: Schema;
     static get _schema(): Schema {
       if (!this.__schema) {
@@ -41,12 +42,14 @@ export default (pool: Pool) => {
           }
           return Reflect.get(target, prop, reciever);
         },
-        set(target, prop, value, reciever) {
+        set(target, prop, value) {
           if (target.constructor._schema.properties.includes(prop)) {
             target._data[prop] = value;
             return true;
           }
-          return Reflect.set(target, prop, value, reciever);
+          // cannot set any property thats not known by schema
+          return true;
+          // return Reflect.set(target, prop, value, reciever);
         },
       });
     }

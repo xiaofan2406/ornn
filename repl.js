@@ -32,8 +32,11 @@ class Author extends Model {
 }
 
 const author = new Author({ email: 'autho@mail.com' });
-
-console.log(Author._schema);
+author.email = 'heloo@mail.com';
+author.uknow = '123';
+console.log(author);
+console.log(Object.keys(author));
+// console.log(author);
 
 // const config = {
 //   tableName: 'author',
