@@ -2,14 +2,6 @@
 # yarn lockfile v1
 
 
-"@ornn/schema@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@ornn/schema/-/schema-0.0.2.tgz#35a15c2daa0a5b7ccdc9ac3ad4930163c6fe8a07"
-
-"@ornn/sql@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@ornn/sql/-/sql-0.0.2.tgz#290c47792a3a2b507f1fefad9983b6133976c3ec"
-
 buffer-writer@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buffer-writer/-/buffer-writer-1.0.1.tgz#22a936901e3029afcd7547eb4487ceb697a3bf08"

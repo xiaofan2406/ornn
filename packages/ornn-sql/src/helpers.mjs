@@ -3,7 +3,12 @@
 /**
  * return true if target is null or undefined
  */
-export const isNil = (target: any): boolean %checks => target == null;
+export const isVoid = (target: any): boolean %checks => target === undefined;
+
+export const isNull = (target: any): boolean %checks => target === null;
+
+export const isNil = (target: any): boolean %checks =>
+  isNull(target) || isVoid(target);
 
 export const isFunction = (target: any): boolean %checks =>
   typeof target === 'function';
@@ -22,12 +27,20 @@ export const stringEsc = (str: string): string => `'${str}'`;
 
 export const numberEsc = (number: number): string => `${number}`;
 
+export const booleanEsc = (bool: boolean): string => String(bool);
+
 export const valueEsc = (value: mixed): string => {
   if (typeof value === 'string') {
     return stringEsc(value);
   }
   if (typeof value === 'number') {
     return numberEsc(value);
+  }
+  if (typeof value === 'boolean') {
+    return booleanEsc(value);
+  }
+  if (isNull(value)) {
+    return 'NULL';
   }
   if (isObject(value)) {
     return stringEsc(JSON.stringify(value));

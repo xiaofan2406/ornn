@@ -1,5 +1,5 @@
 /* @flow */
-import { nameEsc, valueEsc, arrayEsc } from './helpers';
+import { nameEsc, valueEsc, arrayEsc, isVoid } from './helpers';
 
 class Insert {
   +tableName: string = '';
@@ -12,9 +12,11 @@ class Insert {
 
   +parseData = (data: Object): string => {
     const values = Object.values(data)
+      .filter(value => !isVoid(value))
       .map(value => (Array.isArray(value) ? arrayEsc(value) : valueEsc(value)))
       .join(', ');
     const columns = Object.keys(data)
+      .filter(key => !isVoid(data[key]))
       .map(nameEsc)
       .join(', ');
 

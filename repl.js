@@ -5,13 +5,20 @@ import { CreateTable, PG_TYPES, Insert } from './packages/ornn-sql/src';
 
 const { Model } = ornn({
   user: 'ornn',
-  host: '192.168.1.255',
+  host: '0.0.0.0',
   database: 'ornn_test',
   password: 'ornn',
   port: 5432,
 });
 
-class Author extends Model {
+class User extends Model {
+  static get options() {
+    return {
+      tableName: 'user',
+      defaultId: true,
+      timestamp: true,
+    };
+  }
   static get schema() {
     return {
       email: {
@@ -19,35 +26,33 @@ class Author extends Model {
         required: true,
         unique: true,
       },
-      username: {
-        type: PG_TYPES.VARCHAR(200),
+      password: {
+        type: PG_TYPES.TEXT,
       },
-      age: {
-        type: PG_TYPES.INTEGER,
-      },
-      uuid: {
-        type: PG_TYPES.UUID,
-        default: uuid.v4,
-      },
-      isActive: {
+      activated: {
         type: PG_TYPES.BOOLEAN,
+        required: true,
         default: false,
+      },
+      credit: {
+        type: PG_TYPES.INTEGER,
+        required: true,
+        default: 0,
       },
     };
   }
 }
 
-const author = new Author({ email: 'autho@mail.com' });
-author.email = 'heloo@mail.com';
-author.uknow = '123';
-console.log(author);
-console.log(Object.keys(author));
+const user = new User({ email: 'autho@mail.com' });
+user.email = 'heloo@mail.com';
+user.uknow = '123';
+console.log(user);
+console.log(Object.keys(user));
 
-author
+user
   .save()
   .then(console.log)
   .catch(console.log);
-// console.log(author);
 
 // const config = {
 //   tableName: 'author',

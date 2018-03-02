@@ -11,21 +11,15 @@ export default (pool: Pool) => {
     /*
       user extend Model and should sets schema and tableName
     */
-    static get schema(): SchemaConfig {
-      return {};
-    }
-    static get tableName(): string {
-      return '';
-    }
+    static schema: SchemaConfig;
+    static options: SchemaOption;
 
     // get the Schema object through _schema
     // is this needed?
     static __schema: Schema;
     static get _schema(): Schema {
       if (!this.__schema) {
-        this.__schema = new Schema(this.schema, {
-          tableName: this.tableName,
-        });
+        this.__schema = new Schema(this.schema, this.options);
       }
       return this.__schema;
     }
@@ -58,11 +52,12 @@ export default (pool: Pool) => {
       // hooks
       // validations
       const validData = this._schema.getValues(data);
-
+      console.log(validData);
       const query = new Insert({
-        tableName: this.tableName,
+        tableName: this.options.tableName,
         data: validData,
       }).sql;
+      console.log(query);
       return pool.query(query);
     }
 
