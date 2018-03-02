@@ -1,8 +1,11 @@
 declare type Value = string | number | void;
 
+declare type InsertConfigReturns = string[] | string;
+
 declare type InsertConfig = {|
   +tableName: string,
   +data: Object,
+  +returns?: InsertConfigReturns,
 |};
 
 declare type ColumnConfig = {|
@@ -58,5 +61,6 @@ declare module '@ornn/sql' {
     isNil: typeof isNil,
     isFunction: typeof isFunction,
     isObject: typeof isObject,
+    STAR: '*',
   };
 }

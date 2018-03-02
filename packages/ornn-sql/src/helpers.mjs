@@ -54,3 +54,5 @@ export const arrayEsc = (array: mixed[]): string =>
       .map(item => (Array.isArray(item) ? '' : valueEsc(item)))
       .join(',')}}`
   );
+
+export const STAR = '*';

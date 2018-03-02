@@ -41,18 +41,27 @@ class User extends Model {
       },
     };
   }
+
+  static afterSave = async data => {
+    console.log('afterSave');
+    delete data.password;
+  };
+
+  static beforeSave(data) {
+    console.log('beforeSave');
+    data.password = 'hased password, its secure now';
+  }
 }
+(async () => {
+  const user = new User({ email: 'autho@mail.com' });
+  user.email = 'author@mail.com';
+  user.uknow = '123';
 
-const user = new User({ email: 'autho@mail.com' });
-user.email = 'heloo@mail.com';
-user.uknow = '123';
-console.log(user);
-console.log(Object.keys(user));
-
-user
-  .save()
-  .then(console.log)
-  .catch(console.log);
+  await user.save();
+  console.log(user);
+  console.log(user.createdAt.toString());
+  process.exit();
+})();
 
 // const config = {
 //   tableName: 'author',

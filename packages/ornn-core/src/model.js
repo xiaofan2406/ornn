@@ -1,18 +1,25 @@
 /* @flow */
 
 import Schema from '@ornn/schema';
-import { Insert } from '@ornn/sql';
+import { Insert, helpers } from '@ornn/sql';
 import type { Pool } from 'pg';
+
+const { isFunction } = helpers;
 
 export default (pool: Pool) => {
   class Model {
-    _data: Object;
+    +_data: Object;
+    _flags: Object = {
+      isSaved: false,
+    };
 
-    /*
-      user extend Model and should sets schema and tableName
-    */
+    //  user extend Model and should sets schema and tableName
     static schema: SchemaConfig;
     static options: SchemaOption;
+
+    // user will overwrite these hooks
+    static beforeSave: (data: Object) => Promise<void>;
+    static afterSave: (data: Object) => Promise<void>;
 
     // get the Schema object through _schema
     // is this needed?
@@ -49,16 +56,49 @@ export default (pool: Pool) => {
     }
 
     static async insert(data: Object) {
-      // hooks
       // validations
+
+      // process timestamp option
+      if (this.options.timestamp) {
+        data.createdAt = new Date().toISOString();
+      }
+
       const validData = this._schema.getValues(data);
-      console.log(validData);
       const query = new Insert({
         tableName: this.options.tableName,
         data: validData,
+        returns: helpers.STAR,
       }).sql;
       console.log(query);
-      return pool.query(query);
+      const result = await pool.query(query);
+      const created = new this(result.rows[0]);
+      return created;
+    }
+
+    static async _beforeSave(instance: Object) {
+      if (isFunction(this.beforeSave)) {
+        this.beforeSave(instance._data);
+      }
+    }
+
+    // TODO fix instance's type
+    static async _afterSave(instance: Object) {
+      instance._flags.isSaved = true;
+      if (isFunction(this.afterSave)) {
+        await this.afterSave(instance._data);
+      }
+    }
+
+    +save = async () => {
+      await this.constructor._beforeSave(this);
+      const created = await this.constructor.insert(this._data);
+      Object.assign(this._data, created._data);
+      await this.constructor._afterSave(this);
+      return true;
+    };
+
+    get isSaved(): boolean {
+      return this._flags.isSaved;
     }
 
     /**
@@ -81,8 +121,6 @@ export default (pool: Pool) => {
     // static async delete() {}
 
     // static async update() {}
-
-    save = () => this.constructor.insert(this._data);
 
     // hooks
 

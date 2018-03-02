@@ -7,7 +7,12 @@ class Insert {
 
   constructor(config: InsertConfig) {
     this.tableName = config.tableName;
-    this.sql = this.parseData(config.data);
+    this.sql = [
+      this.parseData(config.data),
+      config.returns ? this.parseReturns(config.returns) : '',
+    ]
+      .join(' ')
+      .concat(';');
   }
 
   // js null will be set to NULL, as a way to clear value
@@ -25,6 +30,11 @@ class Insert {
     const tableName = nameEsc(this.tableName);
     return `INSERT INTO ${tableName} (${columns}) VALUES (${values})`;
   };
+
+  +parseReturns = (returns: InsertConfigReturns): string =>
+    `RETURNING ${
+      typeof returns === 'string' ? returns : returns.map(nameEsc).join(', ')
+    }`;
 }
 
 export default Insert;
