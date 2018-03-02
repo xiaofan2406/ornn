@@ -22,6 +22,8 @@
     "build": "./scripts/build",
     "prepublishOnly": "npm run build",
     "flow": "flow",
+    "dockerup": "docker-compose -f ./config/docker-compose.yml up",
+    "dockerdown": "docker-compose -f ./config/docker-compose.yml down",
     "repl": "babel-node ./repl.js"
   },
   "jest": {

@@ -1,4 +1,4 @@
-FROM postgres:9.6
+FROM postgres
 
 ENV POSTGRES_USER ornn
 ENV POSTGRES_PASSWORD ornn
