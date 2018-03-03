@@ -13,7 +13,8 @@ declare type ColumnConfig = {|
   type: string,
   required: boolean,
   default: ValueDefault | void,
-  primary: boolean,
+  identity: boolean,
+  primaryKey: boolean,
   unique: boolean,
 |};
 

@@ -6,8 +6,9 @@ export const DEFAULT_ID_NAME = 'id';
 
 export const DEFAULT_ID_PROPERTY = {
   [DEFAULT_ID_NAME]: {
-    type: PG_TYPES.SERIAL,
-    primary: true,
+    type: PG_TYPES.INTEGER,
+    identity: true,
+    primaryKey: true,
   },
 };
 

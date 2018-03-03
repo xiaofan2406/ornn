@@ -71,7 +71,7 @@ class Schema {
     type: config.type,
     required: !!config.required,
     default: !isFunction(config.default) ? config.default : undefined,
-    primary: !!config.primary,
+    primaryKey: !!config.primaryKey,
     unique: !!config.unique,
   });
 
