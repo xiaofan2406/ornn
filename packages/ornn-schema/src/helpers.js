@@ -1,6 +1,6 @@
 /* @flow */
 
-import { PG_TYPES } from '@ornn/sql';
+import * as PG_TYPES from './pg-types';
 
 export const DEFAULT_ID_NAME = 'id';
 

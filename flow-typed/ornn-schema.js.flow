@@ -55,5 +55,8 @@ declare module '@ornn/schema' {
     describeTable(): string;
   }
 
+  // TODO enum
+  declare export var PG_TYPES: { [string]: string };
+
   declare export default typeof Schema
 }

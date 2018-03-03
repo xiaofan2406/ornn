@@ -39,9 +39,6 @@ declare module '@ornn/sql' {
 
   declare export var CreateTable: typeof CreateTable;
 
-  // TODO enum
-  declare export var PG_TYPES: { [string]: string };
-
   declare function isVoid(target: any): boolean %checks(target === undefined);
 
   declare function isNull(target: any): boolean %checks(target === null);

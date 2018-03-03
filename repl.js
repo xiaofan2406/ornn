@@ -1,8 +1,8 @@
 /* @flow */
 import uuid from 'uuid';
 import ornn from './packages/ornn-core/src';
-import Schema from './packages/ornn-schema/src';
-import { CreateTable, PG_TYPES, Insert } from './packages/ornn-sql/src';
+import Schema, { PG_TYPES } from './packages/ornn-schema/src';
+import { CreateTable, Insert } from './packages/ornn-sql/src';
 
 const { Model } = ornn({
   user: 'ornn',

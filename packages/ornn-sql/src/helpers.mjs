@@ -1,8 +1,4 @@
 /* @flow */
-
-/**
- * return true if target is null or undefined
- */
 export const isVoid = (target: any): boolean %checks => target === undefined;
 
 export const isNull = (target: any): boolean %checks => target === null;
