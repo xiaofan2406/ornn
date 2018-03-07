@@ -12,7 +12,7 @@
     "node": ">=8"
   },
   "scripts": {
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && npm run lint:eslint && npm run flow",
     "lint:eslint": "./scripts/eslint",
     "lint:prettier": "./scripts/prettier-check",
     "lint": "npm run lint:eslint && npm run lint:prettier",

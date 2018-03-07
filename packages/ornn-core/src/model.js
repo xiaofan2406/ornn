@@ -108,12 +108,12 @@ export default (pool: Pool) => {
      * }
      * @param {*} criteria
      */
-    static async select(criteria) {
-      // hooks
-      // validations
-      // criteria
-      //
-    }
+    // static async select(criteria) {
+    //   // hooks
+    //   // validations
+    //   // criteria
+    //   //
+    // }
 
     // static async findOne() {}
 
