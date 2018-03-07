@@ -1,31 +1,45 @@
 #!/bin/bash
 
 status=0
+lernaPackagesPath=./packages
 
 prettierCheck() {
-  package=./packages/ornn-$1
+  if [[ $1 == ornn ]] || [[ $1 == ornn-* ]]; then
+    packageName=$1
+  else
+    packageName=ornn-$1
+  fi
 
-  if [ ! -d "$package" ]; then
-    printf "Error: Invalid package: '$1'.\\n\\n"
+  # throw error if the ornn-${name} is not found in packages dir
+  # except for the ornn package itself
+  if [ ! -d "$lernaPackagesPath/$packageName" ]; then
+    echo "Error: Invalid package: '$packageName'."
     exit 1
   fi
 
-  echo "Prettier checking:" $1...
-  prettier-check "{$package/src,$package/test}/**/*.{js,mjs,json,md}"
+  packagePath=$lernaPackagesPath/$packageName
+
+  echo "Prettier checking:" $packageName...
+  prettier-check "{$packagePath/src,$packagePath/test}/**/*.{js,mjs,json,md}"
+
   if [ $? -eq 0 ]; then
-    echo "Prettier checking:" $1...Done!
-    echo
+    echo "Prettier checking:" $packageName...Done!
   else
     status=1
-    echo "Prettier checking:" $1...Failed!
-    echo
+    echo "Prettier checking:" $packageName...Failed!
   fi
 }
 
+# if cli did not supply any argument then prettierCheck all
 if [ -z "$1" ]; then
-  for path in $(ls -d ./packages/*/); do prettierCheck ${path:16:-1}; done
+  for path in $(ls -d ./packages/*/);
+  do
+    path=${path::-1}
+    prettierCheck ${path:11}
+  done
 else
   prettierCheck $1
 fi
 
+echo
 exit $status

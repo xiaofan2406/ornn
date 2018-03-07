@@ -1,6 +1,6 @@
 /* @flow */
 import uuid from 'uuid';
-import ornn from './packages/ornn-core/src';
+import ornn from './packages/ornn/src';
 import Schema, { PG_TYPES } from './packages/ornn-schema/src';
 import { CreateTable, Insert } from './packages/ornn-sql/src';
 

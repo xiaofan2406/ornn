@@ -1,5 +1,5 @@
 {
-  "name": "@ornn/core",
+  "name": "ornn",
   "version": "0.0.2",
   "main": "index.js",
   "license": "MIT",
